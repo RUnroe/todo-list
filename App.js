@@ -56,8 +56,8 @@ const Stats = () => {
   return (
     <View style={styles.statSection}>
       <Text style={styles.statText} >Total: {totalCount}</Text>
-      <Text style={styles.statText} >Completed Count: {completedCount}</Text>
-      <Text style={styles.statText} >Uncompleted Count: {uncompletedCount}</Text>
+      <Text style={styles.statText} >Completed: {completedCount}</Text>
+      <Text style={styles.statText} >Uncompleted: {uncompletedCount}</Text>
       <Text style={styles.statText} >Percent Complete: {percentComplete}%</Text>
     </View>
   );
