@@ -41,15 +41,15 @@ const Stats = () => {
   const todos = useRecoilValue(todoListState);
   const getCount = (property, value) => {
     let list;
-    if(property && value) list = todos.filter((todoItem) => {todoItem[property] == value});
+    if(property != null && value != null) list = todos.filter((todoItem) => (todoItem[property] == value));
     else list = todos;
 
     return list.length;
   }
   let totalCount       = getCount();
-  let completedCount   = getCount("completed", true);
-  let uncompletedCount = getCount("completed", false);
-  let percentComplete  = ((Math.floor((completedCount / totalCount) * 10)) / 10);
+  let completedCount   = getCount("isComplete", true);
+  let uncompletedCount = getCount("isComplete", false);
+  let percentComplete  = (Math.floor((completedCount / totalCount) * 100));
   percentComplete = Number.isNaN(percentComplete) ? 0 : percentComplete;
   
 
