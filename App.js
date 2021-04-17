@@ -24,10 +24,11 @@ const Filter = ({setFilter}) => {
   ]
 
   return (
-    <View>
+    <View style={styles.filterSection}>
       <RadioForm
           radio_props={radio_props}
           initial={0}
+          animation={true}
           onPress={(value) => {
             setFilter(value);
           }}
@@ -131,6 +132,7 @@ function TodoForm() {
       <TextInput
         style={styles.input}
         value={value}
+        placeholder="Add a todo item here"
         onChange={e => setValue(e.target.value)}
         onKeyPress={e => {if(e.keyCode == 13) addItem();}}
       />
@@ -190,9 +192,17 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 2,
-    borderColor: "#6295c0",
-    borderRadius: 4,
-    backgroundColor: "#fff"
+    borderColor: "#209cee",
+    borderRadius: 6,
+    backgroundColor: "#fff",
+    padding: 5
+  },
+  filterSection: {
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    padding: 10,
+    maxWidth: 400,
+    marginBottom: 20
   }
 });
 
