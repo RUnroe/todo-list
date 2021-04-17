@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import {
   RecoilRoot,
   atom,
@@ -14,15 +15,46 @@ const todoListState = atom({
   default: [],
 });
 
+
+const Filter = ({setFilter}) => {
+  let radio_props = [
+    {label: "All",         value: null },
+    {label: "Completed",   value: true },
+    {label: "Uncompleted", value: false }
+  ]
+
+  return (
+    <View>
+      <RadioForm
+          radio_props={radio_props}
+          initial={0}
+          onPress={(value) => {
+            setFilter(value);
+          }}
+        />
+    </View>
+  );
+}
+
 function TodoList() {
+  const [filter, setFilter] = React.useState(null);
   const todos = useRecoilValue(todoListState);
    
+  const completionFilter = todoItem => {
+    if(filter == null) return true;
+    return todoItem.isComplete == filter;
+  }
+
+  
   return (
-    <View style={styles.todoList}>
-      {todos.map((todoItem) => (
-        <Todo key={todoItem.id} item={todoItem} />
-      ))}
-      <TodoForm />
+    <View>
+      <Filter setFilter={setFilter} />
+      <View style={styles.todoList}>
+        {todos.filter(completionFilter).map((todoItem) => (
+          <Todo key={todoItem.id} item={todoItem} />
+        ))}
+        <TodoForm />
+      </View>
     </View>
   )
 }
