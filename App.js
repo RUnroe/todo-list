@@ -192,23 +192,20 @@ const styles = StyleSheet.create({
   },
   app: {
     backgroundColor: '#209cee',
-    height: '100vh',
     padding: 30,
   },
   todoList: {
-    background: '#e8e8e8',
+    backgroundColor: '#e8e8e8',
     borderRadius: 4,
     maxWidth: 400,
     padding: 5,
-    display: 'flex',
-    flexFlow: 'column nowrap'
+    display: 'flex'
   },
   todo: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 3,
-    boxShadow: '1px 1px 1px rgba(0, 0, 0, 0.15)',
     display: 'flex',
     flexDirection: 'row',
     height: 100,
@@ -234,6 +231,7 @@ const styles = StyleSheet.create({
   },
   statSection: {
     maxWidth: 400,
+    marginTop: 10
   },
   statText: {
     color: "#fff",
