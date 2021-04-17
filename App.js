@@ -37,6 +37,33 @@ const Filter = ({setFilter}) => {
   );
 }
 
+const Stats = () => {
+  const todos = useRecoilValue(todoListState);
+  const getCount = (property, value) => {
+    let list;
+    if(property && value) list = todos.filter((todoItem) => {todoItem[property] == value});
+    else list = todos;
+
+    return list.length;
+  }
+  let totalCount       = getCount();
+  let completedCount   = getCount("completed", true);
+  let uncompletedCount = getCount("completed", false);
+  let percentComplete  = (Math.floor((completedCount / totalCount) * 10)) / 10;
+
+  
+
+  return (
+    <View style={styles.statSection}>
+      <Text>Total:             {totalCount}</Text>
+      <Text>Completed Count:   {completedCount}</Text>
+      <Text>Uncompleted Count: {uncompletedCount}</Text>
+      <Text>Percent Complete:  {percentComplete}%</Text>
+    </View>
+  );
+}
+
+
 function TodoList() {
   const [filter, setFilter] = React.useState(null);
   const todos = useRecoilValue(todoListState);
@@ -56,6 +83,7 @@ function TodoList() {
         ))}
         <TodoForm />
       </View>
+      <Stats />
     </View>
   )
 }
