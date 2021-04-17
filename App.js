@@ -88,7 +88,7 @@ function TodoList() {
   )
 }
 
-function Todo({ key, item }) {
+function Todo({item }) {
   const [todoList, setTodoList] = useRecoilState(todoListState);
   const index = todoList.findIndex((listItem) => listItem === item);
   const [value, setValue] = React.useState(todoList[index].text);
@@ -120,9 +120,10 @@ function Todo({ key, item }) {
   return (
     <View style={styles.todo}>
       <TextInput 
-        style={{ textDecoration: item.isComplete ? "line-through" : "" }} 
+        style={{ textDecorationLine: item.isComplete ? "line-through" : "none", textDecorationStyle: 'solid' }} 
         value={value}
         onChange={e => setValue(e.target.value)}
+        onChangeText={text => setValue(text)}
       />
       <View style={{flexDirection: 'row'}}>
         <Button onPress={() => completeTodo()} title="Complete" />
@@ -137,7 +138,9 @@ function TodoForm() {
   const setTodoList = useSetRecoilState(todoListState);
   const todos = useRecoilValue(todoListState);
 
+
   const getId = () => {
+    if(todos.length == 0) return 0;
     return Math.max(...todos.map(o => o.id)) + 1;
   }
 
@@ -161,9 +164,14 @@ function TodoForm() {
         style={styles.input}
         value={value}
         placeholder="Add a todo item here"
-        onChange={e => setValue(e.target.value)}
+        onChange={e => {
+          // console.log(Object.keys(e.currentTarget).filter(key => e.currentTarget[key] == 'g'));
+          setValue(e.target.value);
+        }}
+        onChangeText={text => setValue(text)}
         onKeyPress={e => {if(e.keyCode == 13) addItem();}}
       />
+      <Button title="Add" onPress={() => {addItem();}} />
       
     </View>
   );
@@ -202,13 +210,12 @@ const styles = StyleSheet.create({
     display: 'flex'
   },
   todo: {
-    flex: 1,
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 3,
     display: 'flex',
     flexDirection: 'row',
-    height: 100,
+    height: 50,
     fontSize: 12,
     justifyContent: 'space-between',
     marginBottom: 6,
