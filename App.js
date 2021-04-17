@@ -49,16 +49,16 @@ const Stats = () => {
   let totalCount       = getCount();
   let completedCount   = getCount("completed", true);
   let uncompletedCount = getCount("completed", false);
-  let percentComplete  = (Math.floor((completedCount / totalCount) * 10)) / 10;
-
+  let percentComplete  = ((Math.floor((completedCount / totalCount) * 10)) / 10);
+  percentComplete = Number.isNaN(percentComplete) ? 0 : percentComplete;
   
 
   return (
     <View style={styles.statSection}>
-      <Text>Total:             {totalCount}</Text>
-      <Text>Completed Count:   {completedCount}</Text>
+      <Text>Total: {totalCount}</Text>
+      <Text>Completed Count: {completedCount}</Text>
       <Text>Uncompleted Count: {uncompletedCount}</Text>
-      <Text>Percent Complete:  {percentComplete}%</Text>
+      <Text>Percent Complete: {percentComplete}%</Text>
     </View>
   );
 }
